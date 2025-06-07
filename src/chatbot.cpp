@@ -112,7 +112,15 @@ ChatBot::ChatBot(ChatBot &&source) noexcept
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
-
+    
+    // Update handle in chatlogic
+    if(_chatLogic != nullptr)
+        _chatLogic->SetChatbotHandle(this);
+    
+    // Clear source handles
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
 }  
 
 // Move assignment operator
@@ -134,6 +142,15 @@ ChatBot &ChatBot::operator=(ChatBot &&source) noexcept
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+    
+    // Update handle in chatlogic
+    if(_chatLogic != nullptr)
+        _chatLogic->SetChatbotHandle(this);
+    
+    // Clear source handles
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
 
     return *this;
 }
